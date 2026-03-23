@@ -1,0 +1,38 @@
+name: Smoke Tests - PR
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  RunTest:
+    runs-on: ubuntu-latest
+
+    steps:
+      # clonar projeto
+      - name: Clonar projeto
+      - uses: actions/checkout@v6
+
+      #instalar o java
+      - name: Instalar Java XX
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'oracle'
+          java-version: '17'
+      - run: java HelloWorldApp.java
+
+      # instalar o chrome
+      - name: Instalar o chrome
+      - uses: browser-actions/setup-chrome@v2
+      - run: chrome --version
+
+      # instalar o chrome driver
+      - name: Instalar o Chrome Driver
+      - uses: nanasess/setup-chromedriver@v2
+
+      # executar os testes
+      - name: Run Test
+        run: mvn test -Dtest=RunCumberTest -Dbrowser=chrome-ci
+
+      # gerar o relatório
+
