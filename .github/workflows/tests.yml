@@ -37,12 +37,7 @@ jobs:
 
       # Gerar o relatório
 
-      # Garante que, mesmo se um teste falhar, o pipeline continue para a etapa de salvar o relatório
-      - name: Build and Test with Maven
-        run: mvn test -DcontinueIfFailures=true
-
-
-       # Adicionar o Passo de Arquivamento (Artifact)
+      # Adicionar o Passo de Arquivamento (Artifact)
       - name: Archive Extent Report
         uses: actions/upload-artifact@v4
         if: always() # Garante que o relatório seja anexado mesmo se houver falha nos testes
