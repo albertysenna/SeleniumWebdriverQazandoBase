@@ -36,3 +36,17 @@ jobs:
         run: mvn clean test -Dtest=RunCucumberTest -Dbrowser=chrome-ci
 
       # Gerar o relatório
+
+      # Garante que, mesmo se um teste falhar, o pipeline continue para a etapa de salvar o relatório
+      - name: Build and Test with Maven
+        run: mvn test -DcontinueIfFailures=true
+
+
+       # Adicionar o Passo de Arquivamento (Artifact)
+      - name: Archive Extent Report
+        uses: actions/upload-artifact@v4
+        if: always() # Garante que o relatório seja anexado mesmo se houver falha nos testes
+        with:
+            name: Extent-Test-Report
+            path: target/extent-report.html
+            retention-days: 5 # Mantém o arquivo por 5 dias (ajuste conforme necessário)
