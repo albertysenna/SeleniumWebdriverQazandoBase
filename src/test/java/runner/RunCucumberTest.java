@@ -19,7 +19,7 @@ import static io.cucumber.core.options.Constants.*;
 
 @ConfigurationParameter(
         key = FILTER_TAGS_PROPERTY_NAME,
-        value = "@login-sucesso"
+        value = "@login"
 )
 
 @ConfigurationParameter(
