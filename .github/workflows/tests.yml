@@ -9,28 +9,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # clonar projeto
+      # Clonar projeto
       - name: Clonar projeto
         uses: actions/checkout@v4
 
-      # instalar o java
+      # Instalar o java
       - name: Instalar Java 17
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      # instalar o chrome
+      # Instalar o chrome
       - name: Instalar o Chrome
         uses: browser-actions/setup-chrome@v2
 
       - name: Verificar versão do Chrome
         run: google-chrome --version
 
-      # instalar o chrome driver
+      # Instalar o chrome driver
       - name: Instalar o ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
-      # executar os testes
+      # Executar os testes
       - name: Run Test
         run: mvn clean test -Dtest=RunCucumberTest -Dbrowser=chrome-ci
+
+      # Gerar o relatório
