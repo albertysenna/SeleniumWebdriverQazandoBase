@@ -27,9 +27,11 @@ public class DriverFactory {
 
                     ChromeOptions chromeOptions = new ChromeOptions();
 
-                    chromeOptions.addArguments("--headless=new");
-                    chromeOptions.addArguments("--window-size=1920,1080");
-                    chromeOptions.addArguments("--disable-gpu");
+                    ChromeOptions options = new ChromeOptions();
+                    options.addArguments("--headless"); // Roda sem interface gráfica (obrigatório para CI)
+                    options.addArguments("--no-sandbox"); // Necessário para ambientes Docker/Linux
+                    options.addArguments("--disable-dev-shm-usage"); // Evita erros de memória limitada
+                    options.addArguments("--window-size=1920,1080"); // Define um tamanho de tela padrão
 
                     WebDriverManager.chromedriver().setup();
                     driver = new ChromeDriver(chromeOptions);
