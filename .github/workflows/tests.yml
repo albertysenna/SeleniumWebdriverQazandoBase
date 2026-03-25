@@ -35,13 +35,17 @@ jobs:
       - name: Run Test
         run: mvn clean test -Dtest=RunCucumberTest -Dbrowser=chrome-ci
 
-      # Gerar o relatório
 
-      # Adicionar o Passo de Arquivamento (Artifact)
-      - name: Archive Extent Report
+
+        #  GERAR RELATÓRIO ALLURE
+      - name: Gerar Allure Report
+        run: mvn allure:report
+
+        #  PUBLICAR ARTIFACT DO RELATÓRIO
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
-        if: always() # Garante que o relatório seja anexado mesmo se houver falha nos testes
+        if: always()
         with:
-            name: Extent-Test-Report
-            path: target/extent-report.html
-            retention-days: 5 # Mantém o arquivo por 5 dias (ajuste conforme necessário)
+              name: Allure-Report
+              path: target/site/allure-maven-plugin
+              retention-days: 5
