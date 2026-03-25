@@ -19,12 +19,12 @@ import static io.cucumber.core.options.Constants.*;
 
 @ConfigurationParameter(
         key = FILTER_TAGS_PROPERTY_NAME,
-        value = "@login"
+        value = "@login-sucesso"
 )
 
 @ConfigurationParameter(
         key = PLUGIN_PROPERTY_NAME,
-        value = "pretty, com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"
+        value = "pretty,io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm,html:target/cucumber-report.html"
 )
 
 @ConfigurationParameter(

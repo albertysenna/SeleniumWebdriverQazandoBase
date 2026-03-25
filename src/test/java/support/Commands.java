@@ -21,75 +21,66 @@ public class Commands {
     }
 
 
-    public static void clickElement(By element){
+    public static void clickElement(By element) {
 
         System.out.println("######################");
 
-        try{
 
-            System.out.println("Vai clicar no elemento: " + element);
+        System.out.println("Vai clicar no elemento: " + element);
 
-            waitElementBeClickable(element, 10);
-            DriverFactory.getDriver().findElement(element).click();
+        waitElementBeClickable(element, 10);
+        DriverFactory.getDriver().findElement(element).click();
 
-            System.out.println("Clicou no elemento " + element);
+        System.out.println("Clicou no elemento " + element);
 
-        } catch (Exception error) {
-
-            throw error;
 
 //            System.out.println("********** Aconteceu um erro ao tentar clicar no elemento: " + element);
 //            System.out.println(error);
 
-        }
-
-        System.out.println("##################################");
-
     }
 
-    public static void fillField(By element, String value){
 
-        System.out.println("######################");
+    public static void fillField(By element, String value) {
 
-        try{
 
-            System.out.println("Vai preencher o campo: " + element);
+        System.out.println("Vai preencher o campo: " + element);
 
-            waitElementBeVisible(element, 10);
+        waitElementBeVisible(element, 10);
+        DriverFactory.getDriver().findElement(element).sendKeys(value);
 
-            DriverFactory.getDriver().findElement(element).sendKeys(value);
+        System.out.println("Preencheu o campo " + element);
 
-            System.out.println("Preencheu o campo " + element);
-
-        } catch (Exception error) {
-
-            throw error;
 
 //            System.out.println("********** Aconteceu um erro ao tentar preencher o campo: " + element);
 //            System.out.println(error);
 
-        }
-
-        System.out.println("##################################");
-
     }
 
-    public static void checkMessage(By element, String expectedMessage){
 
-        String actualMessage = "";
+    public static void checkMessage(By element, String expectedMessage) {
+
 
         System.out.println("################################################");
         System.out.println("Vai validar mensagem: " + expectedMessage);
 
-        waitElementBeVisible(element,1000);
+        WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 
-        actualMessage = DriverFactory.getDriver().findElement(element).getText();
+        String actualMessage = DriverFactory.getDriver().findElement(element).getText();
 
-        // Quando não der certo, vai quebrar quebrar o teste!!
         Assertions.assertEquals( expectedMessage, actualMessage, "Os textos não são iguais!");
-        // Quando não der certo, vai quebrar quebrar o teste!!
+
+//        Assertions.assertEquals(
+//                expectedMessage, actualMessage,
+//                "Esperado: '" + expectedMessage + "' mas veio: '" + actualMessage + "'"
+//        );
 
         System.out.println("Validou a mensagem: " + expectedMessage);
         System.out.println("#################################################");
     }
+
+
 }
+
+
+
