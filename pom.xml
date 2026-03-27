@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -17,8 +16,9 @@
 
         <selenium.version>4.18.1</selenium.version>
         <cucumber.version>7.15.0</cucumber.version>
-        <junit.version>5.10.2</junit.version>
+        <allure.version>2.27.0</allure.version>
         <webdrivermanager.version>5.7.0</webdrivermanager.version>
+        <junit.jupiter.version>5.10.2</junit.jupiter.version>
     </properties>
 
     <dependencies>
@@ -44,22 +44,22 @@
             <version>${cucumber.version}</version>
         </dependency>
 
-        <!-- Cucumber JUnit 5 -->
+        <!-- Cucumber JUnit Platform (JUnit 5) -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-junit-platform-engine</artifactId>
             <version>${cucumber.version}</version>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit Suite (necessário para o Runner moderno) -->
+        <!-- JUnit 5 -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-suite</artifactId>
@@ -67,10 +67,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Allure Cucumber -->
         <dependency>
-            <groupId>tech.grasshopper</groupId>
-            <artifactId>extentreports-cucumber7-adapter</artifactId>
-            <version>1.14.0</version>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+            <version>${allure.version}</version>
         </dependency>
 
     </dependencies>
@@ -78,24 +79,29 @@
     <build>
         <plugins>
 
-            <!-- Compilador Java -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
 
-            <!-- Executar testes -->
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <useModulePath>false</useModulePath>
+                    <!-- Executar apenas seu runner -->
                     <includes>
-                        <include>**/*Test.java</include>
+                        <include>**/runner/RunCucumberTest.java</include>
                     </includes>
+                    <!-- Evita que JUnit 5 conte containers internos como testes extras -->
+                    <forkCount>1</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <perCoreThreadCount>false</perCoreThreadCount>
                 </configuration>
             </plugin>
 

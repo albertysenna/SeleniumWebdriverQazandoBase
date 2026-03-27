@@ -7,6 +7,8 @@ import io.cucumber.java.pt.Então;
 import pages.CadastroUsuarioPage;
 import pages.LoginPage;
 
+import java.io.IOException;
+
 import static support.Commands.clickElement;
 import static support.Commands.waitElementBeClickable;
 import static support.Utils.getRandomEmail;
@@ -24,7 +26,7 @@ public class CadastroUsuarioSteps {
     }
 
     @Dado("^preencho todos os campos obrigatórios$")
-    public void preencho_campos_obrigatorios() {
+    public void preencho_campos_obrigatorios() throws IOException {
 
         cadastroPage.preencheNome("Eduardo");
         cadastroPage.preencheEmail(getRandomEmail());
@@ -32,7 +34,7 @@ public class CadastroUsuarioSteps {
     }
 
     @Quando("^clico em cadastrar$")
-    public void clico_cadastrar() {
+    public void clico_cadastrar() throws IOException {
 
         cadastroPage.cadastrarUsuario();
     }

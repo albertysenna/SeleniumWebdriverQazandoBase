@@ -1,12 +1,9 @@
 package pages;
 
 import driver.DriverFactory;
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+import java.io.IOException;
 
 import static support.Commands.*;
 
@@ -20,7 +17,7 @@ public class LoginPage {
     private By botaoLogin = By.id("btnLogin");
     private By botaoAcessarCadastro = By.cssSelector(".right_list_fix > li > a > .fa-lock");
 
-    public void acessarAplicacao(){
+    public void acessarAplicacao() {
         DriverFactory.getDriver().get(url);
     }
 
@@ -28,12 +25,13 @@ public class LoginPage {
 
         clickElement(botaoAcessarLogin);
 
+
 //        WebDriverWait wait = new WebDriverWait( DriverFactory.getDriver(), Duration.ofSeconds(10));
 //        wait.until(ExpectedConditions.elementToBeClickable(botaoAcessarLogin)).click();
 
     }
 
-    public void preencherEmail(String email){
+    public void preencherEmail(String email) throws IOException {
 
 //        WebDriverWait wait = new WebDriverWait( DriverFactory.getDriver(), Duration.ofSeconds(10));
 //
@@ -44,30 +42,29 @@ public class LoginPage {
     }
 
 
+    public void preencherSenha(String senha) {
 
-    public void preencherSenha(String senha){
+        // DriverFactory.getDriver().findElement(campoSenha).sendKeys(senha);
 
-       // DriverFactory.getDriver().findElement(campoSenha).sendKeys(senha);
-
-        fillField(campoSenha,senha);
+        fillField(campoSenha, senha);
     }
 
-    public void clicarLogin(){
+    public void clicarLogin() {
 
         clickElement(botaoLogin);
-       // DriverFactory.getDriver().findElement(botaoLogin).click();
+        // DriverFactory.getDriver().findElement(botaoLogin).click();
     }
 
-    public void verificaLoginSucesso(){
+    public void verificaLoginSucesso() {
 
-        checkMessage(By.id("swal2-title"),"Login realizado");
+        checkMessage(By.id("swal2-title"), "Login realizado");
 
 //        String textoLoginSucesso = DriverFactory.getDriver().findElement(By.id("swal2-title")).getText();
 //        Assertions.assertEquals( "Login realizado", textoLoginSucesso, "Os textos não são iguais!");
     }
 
 
-    public void verificaCampoVazio(String message){
+    public void verificaCampoVazio(String message) {
 
         checkMessage(By.className("invalid_input"), message);
 
@@ -75,7 +72,7 @@ public class LoginPage {
 //        Assertions.assertEquals(message, textError);
     }
 
-    public void acessarTelaCadastro(){
+    public void acessarTelaCadastro() {
 
         clickElement(botaoAcessarCadastro);
         //        DriverFactory.getDriver().findElement(botaoAcessarCadastro).click();
