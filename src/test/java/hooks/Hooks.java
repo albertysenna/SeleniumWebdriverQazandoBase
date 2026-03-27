@@ -15,11 +15,9 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) {
-
         if (scenario.isFailed()) {
             AllureUtils.attachScreenshot(scenario);
         }
-
         DriverFactory.quitDriver();
     }
 }

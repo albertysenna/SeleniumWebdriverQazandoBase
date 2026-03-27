@@ -37,15 +37,23 @@ jobs:
 
 
 
-        #  GERAR RELATÓRIO ALLURE
-      - name: Gerar Allure Report
-        run: mvn allure:report
 
-        #  PUBLICAR ARTIFACT DO RELATÓRIO
+      - name: Instalar Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure -y
+          sudo apt-get update
+          sudo apt-get install allure -y
+          
+          
+     
+
+      - name: Gerar relatório Allure
+        run: allure generate target/allure-results -o target/allure-report --clean
+
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-              name: Allure-Report
-              path: target/site/allure-maven-plugin
-              retention-days: 5
+             name: Allure-Report
+             path: target/allure-report
+             retention-days: 5

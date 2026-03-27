@@ -1,36 +1,19 @@
 package runner;
 
-import org.junit.platform.suite.api.ConfigurationParameter;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
 
-import static io.cucumber.core.options.Constants.*;
-
+/**
+ * Runner ultra-clean do Cucumber
+ *
+ * Observações:
+ * - Não possui @ConfigurationParameter, todas as configurações ficam em junit-platform.properties
+ * - Permite filtros de tags dinâmicos via Maven (-Dcucumber.filter.tags)
+ * - Mantém o runner simples e fácil de manter
+ */
 @Suite
 @IncludeEngines("cucumber")
-@SelectClasspathResource("features")
-
-@ConfigurationParameter(
-        key = GLUE_PROPERTY_NAME,
-        value = "steps,hooks"
-)
-
-
-@ConfigurationParameter(
-        key = FILTER_TAGS_PROPERTY_NAME,
-        value = "@login-sucesso"
-)
-
-@ConfigurationParameter(
-        key = PLUGIN_PROPERTY_NAME,
-        value = "pretty,io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm,html:target/cucumber-report.html"
-)
-
-@ConfigurationParameter(
-        key = PLUGIN_PUBLISH_QUIET_PROPERTY_NAME,
-        value = "true"
-)
-
+@SelectClasspathResource("features") // Pasta onde estão as features
 public class RunCucumberTest {
 }

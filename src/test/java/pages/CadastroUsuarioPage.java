@@ -1,6 +1,7 @@
 package pages;
 
 import driver.DriverFactory;
+
 import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 
@@ -47,6 +48,6 @@ public class CadastroUsuarioPage {
 
     public void verificaCadastroSucesso() {
         String textoLoginSucesso = DriverFactory.getDriver().findElement(By.id("swal2-title")).getText();
-        Assertions.assertEquals("Cadastro realizado!", textoLoginSucesso, "Os textos não são iguais!");
+        Assertions.assertEquals("Cadastro realizado!", textoLoginSucesso, "Validar mensagem exibida");
     }
 }

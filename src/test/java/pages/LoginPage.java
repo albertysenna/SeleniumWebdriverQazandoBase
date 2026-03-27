@@ -57,7 +57,7 @@ public class LoginPage {
 
     public void verificaLoginSucesso() {
 
-        checkMessage(By.id("swal2-title"), "Login realizadox");
+        checkMessage(By.id("swal2-title"), "Login realizado");
 
 //        String textoLoginSucesso = DriverFactory.getDriver().findElement(By.id("swal2-title")).getText();
 //        Assertions.assertEquals( "Login realizado", textoLoginSucesso, "Os textos não são iguais!");

@@ -1,10 +1,12 @@
 package support;
 
 import driver.DriverFactory;
-import org.junit.jupiter.api.Assertions;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import support.AssertUtils;
+import org.junit.jupiter.api.Assertions;
 
 import java.time.Duration;
 
@@ -55,32 +57,65 @@ public class Commands {
 //            System.out.println(error);
 
     }
-
+//
+//
+//    public static void checkMessage(By element, String expectedMessage) {
+//
+//
+//
+//
+//        WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
+//        wait.until(ExpectedConditions.visibilityOfElementLocated(element));
+//
+//        String actualMessage = DriverFactory.getDriver().findElement(element).getText();
+//
+//
+//
+//        //assertEquals("Validar mensagem de exibida", expectedMessage, actualMessage);
+//
+//        Assertions.assertEquals(expectedMessage, actualMessage, "Validar mensagem exibida");
+//
+//
+//    }
 
     public static void checkMessage(By element, String expectedMessage) {
 
+        WebDriverWait wait = new WebDriverWait(
+                DriverFactory.getDriver(),
+                Duration.ofSeconds(10)
+        );
 
-        System.out.println("################################################");
-        System.out.println("Vai validar mensagem: " + expectedMessage);
-
-        WebDriverWait wait = new WebDriverWait(DriverFactory.getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(element));
 
-        String actualMessage = DriverFactory.getDriver().findElement(element).getText();
+        String actualMessage = DriverFactory.getDriver()
+                .findElement(element)
+                .getText()
+                .trim();
 
-        Assertions.assertEquals( expectedMessage, actualMessage, "Os textos não são iguais!");
+        if (!expectedMessage.trim().equals(actualMessage)) {
 
-//        Assertions.assertEquals(
-//                expectedMessage, actualMessage,
-//                "Esperado: '" + expectedMessage + "' mas veio: '" + actualMessage + "'"
-//        );
+            String errorMessage =
+                    "Validar mensagem exibida\n\n" +
+                            "Esperado: [" + expectedMessage + "]\n" +
+                            "Obtido:   [" + actualMessage + "]";
 
-        System.out.println("Validou a mensagem: " + expectedMessage);
-        System.out.println("#################################################");
+            // opcional: anexar no Allure
+            io.qameta.allure.Allure.addAttachment(
+                    "Diferença encontrada",
+                    errorMessage
+            );
+
+            throw new AssertionError(errorMessage);
+
+        } else {
+            Allure.step("Mensagem validada com sucesso");
+        }
+    }
+
     }
 
 
-}
+
 
 
 

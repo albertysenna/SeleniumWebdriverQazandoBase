@@ -6,7 +6,7 @@
     Quero me cadastrar
     Para finalizar uma compra no site
 
-    @cadastro_usuario_sucesso
+    @cadastro_usuario_sucesso @run
     Cenário: Nome do usuário vazio
       Dado que estou na tela de cadastro de usuário
       E preencho todos os campos obrigatórios

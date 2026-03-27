@@ -6,22 +6,19 @@ Funcionalidade: Login
   Quero fazer login
   Para fazer uma compra no site
 
-  Contexto: Acessar tela de login
-    Dado que estou na tela de login
-
-  @login-sucesso
+  @login-sucesso @run
   Cenário: Login com sucesso
+    Dado que estou na tela de login
     Quando preencho login "eduardo.finotti@qazando.com" e senha "123456"
     E clico em Login
     Então vejo mensagem de login com sucesso
 
-
-  @login-inválido
+  @login-invalido @run
   Esquema do Cenário: Validar: <name>
+    Dado que estou na tela de login
     Quando preencho login "<user>" e senha "<password>"
     E clico em Login
     Então vejo mensagem "<message>" de campo não preenchido
-
 
     Exemplos:
       | user                | password | message          | name            |

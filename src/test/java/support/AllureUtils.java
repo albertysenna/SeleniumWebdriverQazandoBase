@@ -6,12 +6,9 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.io.ByteArrayInputStream;
+import java.util.UUID;
 
 import io.cucumber.java.Scenario;
-import io.qameta.allure.Allure;
-
-import java.io.ByteArrayInputStream;
-import java.util.UUID;
 
 public class AllureUtils {
 
@@ -21,7 +18,7 @@ public class AllureUtils {
                 .getScreenshotAs(OutputType.BYTES);
 
         String scenarioName = scenario.getName()
-                .replaceAll("[^a-zA-Z0-9]", "_"); // limpa caracteres inválidos
+                .replaceAll("[^a-zA-Z0-9]", "_");
 
         String uniqueId = UUID.randomUUID().toString().substring(0, 8);
 
@@ -31,7 +28,6 @@ public class AllureUtils {
                 "Screenshot - " + fileName,
                 new ByteArrayInputStream(screenshot)
         );
-        
     }
-}
 
+}
