@@ -66,3 +66,21 @@ jobs:
           name: Allure-Report
           path: target/allure-report
           retention-days: 5
+
+
+            # 11 Notificar Telegram
+        - name: Notify Telegram
+          if: always()
+          uses: appleboy/telegram-action@v0.1.1
+          with:
+              to: ${{ secrets.TELEGRAM_CHAT_ID }}
+              token: ${{ secrets.TELEGRAM_TOKEN }}
+              message: |
+                    {{ job.status == 'success' && '✅ Smoke Tests PASSARAM!' || '❌ Smoke Tests FALHARAM!' }}
+                                
+                    👤 Autor: ${{ github.actor }}
+                    🌿 PR para: master
+                    🔎 Status: ${{ job.status }}
+                                
+                    🔗 Ver execução:
+                    https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
