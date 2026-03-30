@@ -69,18 +69,20 @@ jobs:
 
 
             # 11 Notificar Telegram
-        - name: Notify Telegram
-          if: always()
-          uses: appleboy/telegram-action@v0.1.1
-          with:
-              to: ${{ secrets.TELEGRAM_CHAT_ID }}
-              token: ${{ secrets.TELEGRAM_TOKEN }}
-              message: |
-                    {{ job.status == 'success' && '✅ Smoke Tests PASSARAM!' || '❌ Smoke Tests FALHARAM!' }}
+      - name: Notify Telegram
+        if: always()
+        uses: appleboy/telegram-action@v0.1.1
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Status dos testes: ${{ job.status }}
+            
+            ${{ job.status == 'success' && '✅ Smoke Tests PASSARAM!' || '❌ Smoke Tests FALHARAM!' }}
                                 
-                    👤 Autor: ${{ github.actor }}
-                    🌿 PR para: master
-                    🔎 Status: ${{ job.status }}
+            👤 Autor: ${{ github.actor }}
+            🌿 PR para: master
+            🔎 Status: ${{ job.status }}
                                 
-                    🔗 Ver execução:
-                    https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            🔗 Ver execução:
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
